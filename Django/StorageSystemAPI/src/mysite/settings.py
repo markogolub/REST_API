@@ -34,6 +34,8 @@ INSTALLED_APPS = [
 
     # Custom generated apps
     'personal',
+    'account',
+    'phone_field',
 
     # Preinstalled with Django
     'django.contrib.admin',
@@ -71,6 +73,8 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'account.Account'
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
