@@ -9,7 +9,9 @@
 
     {% for field in login_form %}
         <p>
+            <p>
             {{field.label_tag}}
+            </p>
             {{field}}
 
             {% if field.help_text %}
