@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from phone_field import PhoneField
+from phonenumber_field.modelfields import PhoneNumberField
 
 class MyAccountManager(BaseUserManager):
     def create_user(self, email, name, surname, cell_phone, address, residence, password=None):
@@ -60,8 +60,8 @@ class Account(AbstractBaseUser):
     is_superuser = models.BooleanField(default=False)
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
-    phone = PhoneField(blank=True, help_text="Contact phone number")
-    cell_phone = PhoneField(blank=True, help_text="Contact cell phone number")
+    phone = PhoneNumberField(blank=True, help_text="Contact phone number")
+    cell_phone = PhoneNumberField(blank=True, help_text="Contact cell phone number", unique=True)
     address = models.CharField(max_length=50)
     residence = models.CharField(max_length=50)
 

@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     # Custom generated apps
     'personal',
     'account',
-    'phone_field',
+    'phonenumber_field',
 
     # Preinstalled with Django
     'django.contrib.admin',
