@@ -60,8 +60,8 @@ class Account(AbstractBaseUser):
     is_superuser = models.BooleanField(default=False)
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
-    phone = PhoneNumberField(blank=True, help_text="Contact phone number")
-    cell_phone = PhoneNumberField(blank=True, help_text="Contact cell phone number", unique=True)
+    phone = PhoneNumberField(blank=True, help_text="Contact phone number. Add '+385' in front for Croatia.")
+    cell_phone = PhoneNumberField(blank=True, help_text="Contact cell phone number. Add '+385' in front for Croatia.", unique=True)
     address = models.CharField(max_length=50)
     residence = models.CharField(max_length=50)
 

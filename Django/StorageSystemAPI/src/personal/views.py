@@ -2,9 +2,9 @@ from django.shortcuts import render
 from account.models import Account
 
 def home_screen_view(request):
-    contex = {}
+    context = {}
 
     accounts = Account.objects.all()
-    contex['accounts'] = accounts
+    context['accounts'] = accounts
 
-    return render(request, "personal/home.html", {})
+    return render(request, "personal/home.html", context)
