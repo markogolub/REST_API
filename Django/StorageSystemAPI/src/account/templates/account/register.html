@@ -8,7 +8,9 @@
     {% csrf_token %}
     {% for field in registration_form %}
         <p>
+            <p>
             {{field.label_tag}}
+            </p>
             {{field}}
 
             {% if field.help_text %}
