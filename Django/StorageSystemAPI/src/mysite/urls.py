@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path, re_path
 from django.contrib.auth import views as auth_views
 
 from personal.views import (
@@ -10,6 +10,11 @@ from account.views import (
     logout_view,
     login_view,
     account_view,
+)
+
+from account.api.views import (
+    api_detail_account_view,
+    api_detail_all_accounts_view,
 )
 
 urlpatterns = [
@@ -25,4 +30,6 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
+    re_path(r'osobe/(?P<pk>\d+)', api_detail_account_view, name='osoba'),
+    path('osobe/', api_detail_all_accounts_view, name='osobe')
 ]

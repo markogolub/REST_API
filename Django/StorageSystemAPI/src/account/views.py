@@ -71,3 +71,5 @@ def account_view(request):
         )
     context['account_form'] = form
     return render(request, 'account/account.html', context)
+
+
