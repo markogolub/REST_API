@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-
+from rest_framework.authtoken.models import Token
 from account.models import Account
 from account.api.serializers import AccountSerializer, RegistrationSerializer
 
@@ -90,6 +90,8 @@ def api_register_account_view(request):
             data['cell_phone'] = str(account.cell_phone)
             data['address'] = account.address
             data['residence'] = account.residence
+            token = Token.objects.get(user=account).key
+            data['token'] = token
         else:
             data = serializer.errors
         print(data)
