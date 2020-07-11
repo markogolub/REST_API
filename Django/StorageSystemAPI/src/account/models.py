@@ -91,6 +91,7 @@ class Location(models.Model):
     latitude = models.DecimalField(max_digits=8, decimal_places=5)
     longitude = models.DecimalField(max_digits=8, decimal_places=5)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    time = models.DateTimeField(verbose_name="time", auto_now=True)
 
     def __str__(self):
         return str(self.latitude) + ", " + str(self.longitude)

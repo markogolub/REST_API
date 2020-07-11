@@ -1,8 +1,9 @@
 from rest_framework import serializers
-from account.models import Account
+from account.models import Account, Location
 
 
 class AccountSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Account
         fields = [

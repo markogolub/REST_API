@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
-from account.models import Account
+from account.models import Account, Location
 from account.api.serializers import AccountSerializer, RegistrationSerializer
 
 
@@ -133,9 +133,39 @@ def api_show_all_locations(request, pk, format=None):
 
         locations = list(account.location_set.all())
         for location in locations:
-            locations_list.append({'longitude': float(location.longitude),
-                                   'latitude': float(location.latitude)})
+            locations_list.append({'latitude': float(location.latitude),
+                                   'longitude': float(location.longitude),
+                                   'time': str(location.time)})
 
         data['locations'] = locations_list
-        return Response(data=data)
+        if data['locations']:
+            return Response(data=data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
+
+@api_view(('POST',))
+@permission_classes((IsAuthenticated,))
+def api_create_location(request, pk, format=None):
+
+    try:
+        account = Account.objects.get(pk=pk)
+    except Account.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    user = request.user
+    if account != user:
+        return Response({'response': "You don't have permission to add this information."})
+
+    if request.method == 'POST':
+        data = {}
+
+        try:
+            new_location = Location(latitude=request.data['latitude'], longitude=request.data['longitude'], account=account)
+            new_location.save()
+
+            data['succes'] = "Created new location."
+
+            return Response(data)
+        except:
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)
