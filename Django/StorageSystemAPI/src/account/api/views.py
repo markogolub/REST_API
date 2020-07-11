@@ -174,11 +174,11 @@ def api_create_location(request, pk, format=None):
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
 
-class LocationListView(ListAPIView):
-    queryset = Location.objects.all()
-    serializer_class = LocationSerializer
+class UserListView(ListAPIView):
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ('latitude', 'longitude', 'account__username')
+    search_fields = ('address', )
 

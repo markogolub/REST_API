@@ -20,7 +20,7 @@ from account.api.views import (
     api_register_account_view,
     api_show_all_locations,
     api_update_account_view,
-    LocationListView,
+    UserListView,
 )
 
 
@@ -51,7 +51,7 @@ urlpatterns = [
     # REST API URLS
     path('osobe/', api_detail_all_accounts_view, name='osobe'),
     path('osobe/login', obtain_auth_token, name="api_login"),
-    path('osobe/location/search/', LocationListView.as_view()),
+    path('osobe/location/search/', UserListView.as_view()),
     re_path(r'osobe/delete/(?P<pk>\d+)', api_delete_account_view, name='api_delete'),
     re_path(r'osobe/location/create/(?P<pk>\d+)', api_create_location, name='api_location'),
     re_path(r'osobe/locations/(?P<pk>\d+)', api_show_all_locations, name='api_all_locations'),
