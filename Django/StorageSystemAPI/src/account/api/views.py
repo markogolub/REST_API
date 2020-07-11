@@ -1,12 +1,14 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
 from account.models import Account
 from account.api.serializers import AccountSerializer, RegistrationSerializer
 
 
 @api_view(('GET',))
+@permission_classes((IsAuthenticated,))
 def api_detail_account_view(request, pk, format=None):
 
     try:
@@ -20,12 +22,16 @@ def api_detail_account_view(request, pk, format=None):
 
 
 @api_view(('GET',))
+@permission_classes((IsAuthenticated,))
 def api_detail_all_accounts_view(request):
 
     try:
         accounts = Account.objects.all()
     except:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if not request.user.is_superuser:
+        return Response({'response': "You don't have permission to see this informations."})
 
     if request.method == 'GET':
         data = []
@@ -38,12 +44,17 @@ def api_detail_all_accounts_view(request):
 
 
 @api_view(('PUT',))
+@permission_classes((IsAuthenticated,))
 def api_update_account_view(request, pk, format=None):
 
     try:
         account = Account.objects.get(pk=pk)
     except Account.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+    user = request.user
+    if account != user:
+        return Response({'response': "You don't have permission to update this informations."})
 
     if request.method == 'PUT':
         serializer = AccountSerializer(account, request.data)
@@ -56,12 +67,17 @@ def api_update_account_view(request, pk, format=None):
 
 
 @api_view(('DELETE',))
+@permission_classes((IsAuthenticated,))
 def api_delete_account_view(request, pk, format=None):
 
     try:
         account = Account.objects.get(pk=pk)
     except Account.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+    user = request.user
+    if account != user:
+        return Response({'response': "You don't have permission to delete this informations."})
 
     if request.method == 'DELETE':
         operation = account.delete()
