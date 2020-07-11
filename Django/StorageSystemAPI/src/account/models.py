@@ -87,6 +87,18 @@ class Account(AbstractBaseUser):
         return True
 
 
+class Location(models.Model):
+    latitude = models.DecimalField(max_digits=8, decimal_places=5)
+    longitude = models.DecimalField(max_digits=8, decimal_places=5)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.latitude) + ", " + str(self.longitude)
+
+    class Meta:
+        ordering = ['latitude', 'longitude']
+
+
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_token(sender, instance=None, created=False, **kwargs):
     if created:

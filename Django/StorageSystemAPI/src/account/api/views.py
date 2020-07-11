@@ -112,3 +112,30 @@ def api_register_account_view(request):
             data = serializer.errors
         print(data)
         return Response(data)
+
+
+@api_view(('GET',))
+@permission_classes((IsAuthenticated,))
+def api_show_all_locations(request, pk, format=None):
+
+    try:
+        account = Account.objects.get(pk=pk)
+    except Account.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    user = request.user
+    if account != user:
+        return Response({'response': "You don't have permission to see this informations."})
+
+    if request.method == 'GET':
+        data = {}
+        locations_list = []
+
+        locations = list(account.location_set.all())
+        for location in locations:
+            locations_list.append({'longitude': float(location.longitude),
+                                   'latitude': float(location.latitude)})
+
+        data['locations'] = locations_list
+        return Response(data=data)
+
