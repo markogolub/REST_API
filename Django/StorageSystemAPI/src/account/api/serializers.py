@@ -60,3 +60,15 @@ class RegistrationSerializer(serializers.ModelSerializer):
         account.set_password(password)
         account.save()
         return account
+
+
+class LocationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Location
+        fields = [
+            'latitude',
+            'longitude',
+            'time',
+            'account',
+        ]

@@ -1,10 +1,13 @@
 from rest_framework import status
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.filters import SearchFilter, OrderingFilter
 from account.models import Account, Location
-from account.api.serializers import AccountSerializer, RegistrationSerializer
+from account.api.serializers import AccountSerializer, RegistrationSerializer, LocationSerializer
 
 
 @api_view(('GET',))
@@ -164,8 +167,18 @@ def api_create_location(request, pk, format=None):
             new_location = Location(latitude=request.data['latitude'], longitude=request.data['longitude'], account=account)
             new_location.save()
 
-            data['succes'] = "Created new location."
+            data['success'] = "Created new location."
 
             return Response(data)
         except:
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LocationListView(ListAPIView):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    filter_backends = (SearchFilter, OrderingFilter)
+    search_fields = ('latitude', 'longitude', 'account__username')
+
