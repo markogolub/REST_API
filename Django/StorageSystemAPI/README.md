@@ -17,9 +17,9 @@ Programi su pisani koristeći Python verzije 3.6.7. i HTML5 na operacijskom sust
 
 Nakon pozicioniranja u direktorij gdje će projekt biti pohranjen, potrebno je izvršiti sljedeću naredbu:
 
-*git clone https://github.com/markogolub/REST_API/tree/master/Django/StorageSystemAPI*
+*git clone https://github.com/markogolub/REST_API.git*
 
-i pozicionirati se u direktorij *src*. Izvođenjem naredbe
+i pozicionirati se u sljedeće direktorije: *REST_API/Django/StorageSystemAPI/src*. Izvođenjem naredbe
 
 *pip install -r requirements.txt*
 
