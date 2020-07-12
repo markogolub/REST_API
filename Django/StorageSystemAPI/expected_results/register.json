@@ -1,1 +1,13 @@
-{"response":"Successfully registered a new user.","email":"mato.matic@example.com","username":"mmatic","name":"Mato","surname":"Matić","phone":"+38510000004","cell_phone":"+385910000004","address":"Zagreb","residence":"Ilica 204","date_joined":"2020-07-12T18:39:09.770793Z","token":"178c43d7808510c4f9766e191e53653d4c8f348a"}
+{
+	"response":"Successfully registered a new user.",
+	"email":"mato.matic@example.com",
+	"username":"mmatic",
+	"name":"Mato",
+	"surname":"Matić",
+	"phone":"+38510000004",
+	"cell_phone":"+385910000004",
+	"address":"Zagreb",
+	"residence":"Ilica 204",
+	"date_joined":"2020-07-12T18:39:09.770793Z",
+	"token":"178c43d7808510c4f9766e191e53653d4c8f348a"
+}
