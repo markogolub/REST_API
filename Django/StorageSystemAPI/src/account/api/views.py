@@ -1,11 +1,13 @@
 from rest_framework import status
 from rest_framework.generics import ListAPIView
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import SearchFilter, OrderingFilter
+from django.contrib.auth import authenticate
 from account.models import Account, Location
 from account.api.serializers import AccountSerializer, RegistrationSerializer, LocationSerializer
 
@@ -182,3 +184,29 @@ class UserListView(ListAPIView):
     filter_backends = (SearchFilter, OrderingFilter)
     search_fields = ('address', )
 
+
+class LoginAuthTokenView(APIView):
+
+    authentication_classes = []
+    permission_classes = []
+
+    def post(self, request):
+        data = {}
+
+        # Django default.
+        email = request.POST.get('username')
+        password = request.POST.get('password')
+        account = authenticate(email=email, password=password)
+        if account:
+            try:
+                token = Token.objects.get(user=account)
+            except Token.DoesNotExist:
+                token = Token.objects.create(user=account)
+            data['response'] = "Successfully authenticated."
+            data['pk'] = account.pk
+            data['token'] = token.key
+        else:
+            data['response'] = "Error!"
+            data['error_message'] = "Invalid credentials."
+
+        return Response(data)

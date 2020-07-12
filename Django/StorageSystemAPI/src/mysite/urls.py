@@ -1,7 +1,6 @@
 from django.contrib import admin
-from django.urls import include, path, re_path
+from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
-from rest_framework.authtoken.views import obtain_auth_token
 from personal.views import (
     home_screen_view
 )
@@ -10,7 +9,6 @@ from account.views import (
     logout_view,
     login_view,
     account_view,
-
 )
 from account.api.views import (
     api_create_location,
@@ -21,8 +19,8 @@ from account.api.views import (
     api_show_all_locations,
     api_update_account_view,
     UserListView,
+    LoginAuthTokenView,
 )
-
 
 
 urlpatterns = [
@@ -50,7 +48,7 @@ urlpatterns = [
 
     # REST API URLS
     path('osobe/', api_detail_all_accounts_view, name='osobe'),
-    path('osobe/login', obtain_auth_token, name="api_login"),
+    path('osobe/login', LoginAuthTokenView.as_view(), name="api_login"),
     path('osobe/location/search/', UserListView.as_view()),
     re_path(r'osobe/delete/(?P<pk>\d+)', api_delete_account_view, name='api_delete'),
     re_path(r'osobe/location/create/(?P<pk>\d+)', api_create_location, name='api_location'),
