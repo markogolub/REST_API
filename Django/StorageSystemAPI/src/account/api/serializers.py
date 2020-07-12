@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from account.models import Account, Location
+from account.models import Account
 
 
 class AccountSerializer(serializers.ModelSerializer):
