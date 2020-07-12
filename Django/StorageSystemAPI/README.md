@@ -22,6 +22,7 @@ Nakon pozicioniranja u direktorij gdje će projekt biti pohranjen, potrebno je i
 i pozicionirati se u sljedeće direktorije: *REST_API/Django/StorageSystemAPI/src*. Izvođenjem naredbe
 
 *pip install -r requirements.txt*
+*(potrebno je izvesti naredbu "sudo pip install -r requirements.txt" ukoliko instalacija ne uspije)*
 
 provodi se instalacija svih potrebnih alata i paketa iz requirements.txt. 
 
