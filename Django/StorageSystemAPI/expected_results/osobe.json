@@ -1,0 +1,72 @@
+{
+    "osobe": [
+        {
+            "id": 1,
+            "email": "admin@admin.com",
+            "username": "",
+            "date_joined": "2020-07-12T17:32:47.593359Z",
+            "last_login": "2020-07-12T17:33:10.738943Z",
+            "is_admin": true,
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": true,
+            "name": "Admin",
+            "surname": "Admin",
+            "phone": "",
+            "cell_phone": "+385910000000",
+            "address": "Server",
+            "residence": "Server"
+        },
+        {
+            "id": 2,
+            "email": "marko.maric@example.com",
+            "username": "mmaric",
+            "date_joined": "2020-07-12T17:38:45.068030Z",
+            "last_login": "2020-07-12T17:38:45.068069Z",
+            "is_admin": false,
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "name": "Marko",
+            "surname": "Marić",
+            "phone": "+38510000001",
+            "cell_phone": "+385910000001",
+            "address": "Zagreb",
+            "residence": "Slavonska avenija, 22"
+        },
+        {
+            "id": 3,
+            "email": "ivan.ivic@example.com",
+            "username": "iiviic",
+            "date_joined": "2020-07-12T17:40:20.580726Z",
+            "last_login": "2020-07-12T17:40:20.580765Z",
+            "is_admin": false,
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "name": "Ivan",
+            "surname": "Ivić",
+            "phone": "+38510000002",
+            "cell_phone": "+385910000002",
+            "address": "Zagreb",
+            "residence": "Ilica 68"
+        },
+        {
+            "id": 4,
+            "email": "pero.peric@example.com",
+            "username": "ppero",
+            "date_joined": "2020-07-12T17:41:16.894781Z",
+            "last_login": "2020-07-12T17:41:16.894814Z",
+            "is_admin": false,
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "name": "Pero",
+            "surname": "Perić",
+            "phone": "+38510000003",
+            "cell_phone": "+385910000003",
+            "address": "Rijeka",
+            "residence": "Korzo 122"
+        }
+    ]
+}
