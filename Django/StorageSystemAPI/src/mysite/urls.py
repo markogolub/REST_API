@@ -21,8 +21,6 @@ from account.api.views import (
     UserListView,
     LoginAuthTokenView,
 )
-
-
 urlpatterns = [
     path('', home_screen_view, name="home"),
     path('account/', account_view, name="account"),
@@ -50,10 +48,12 @@ urlpatterns = [
     path('osobe/', api_detail_all_accounts_view, name='osobe'),
     path('osobe/login', LoginAuthTokenView.as_view(), name="api_login"),
     path('osobe/location/search/', UserListView.as_view()),
+    path('osobe/register', api_register_account_view, name='api_create'),
     re_path(r'osobe/delete/(?P<pk>\d+)', api_delete_account_view, name='api_delete'),
     re_path(r'osobe/location/create/(?P<pk>\d+)', api_create_location, name='api_location'),
     re_path(r'osobe/locations/(?P<pk>\d+)', api_show_all_locations, name='api_all_locations'),
-    re_path(r'osobe/register', api_register_account_view, name='api_create'),
     re_path(r'osobe/update/(?P<pk>\d+)', api_update_account_view, name='api_update'),
     re_path(r'osobe/(?P<pk>\d+)', api_detail_account_view, name='osoba'),
 ]
+
+

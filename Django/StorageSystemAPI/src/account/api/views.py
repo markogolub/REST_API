@@ -104,6 +104,7 @@ def api_delete_account_view(request, pk, format=None):
 
 
 @api_view(('POST',))
+@permission_classes(())
 def api_register_account_view(request):
 
     if request.method == 'POST':
@@ -112,7 +113,7 @@ def api_register_account_view(request):
 
         if serializer.is_valid():
             account = serializer.save()
-            token = Token.objects.get(user=account).key
+            token = Token.objects.get(user=account)
             context['response'] = "Successfully registered a new user."
             context['email'] = account.email
             context['username'] = account.username
@@ -122,7 +123,7 @@ def api_register_account_view(request):
             context['cell_phone'] = str(account.cell_phone)
             context['address'] = account.address
             context['residence'] = account.residence
-            context['token'] = token
+            context['token'] = token.key
             return Response(data=context)
 
         else:
