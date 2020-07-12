@@ -62,7 +62,7 @@ def api_update_account_view(request, pk, format=None):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     user = request.user
-    if account != user:
+    if not user.is_superuser and account != user:
         return Response({'response': "You don't have permission to update this informations."})
 
     if request.method == 'PUT':
@@ -88,7 +88,7 @@ def api_delete_account_view(request, pk, format=None):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     user = request.user
-    if account != user:
+    if not user.is_superuser and account != user:
         return Response({'response': "You don't have permission to delete this informations."})
 
     if request.method == 'DELETE':
@@ -140,7 +140,7 @@ def api_show_all_locations(request, pk, format=None):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     user = request.user
-    if account != user:
+    if not user.is_superuser and account != user:
         return Response({'response': "You don't have permission to see this informations."})
 
     if request.method == 'GET':
