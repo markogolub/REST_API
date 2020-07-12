@@ -15,7 +15,7 @@ class AccountSerializer(serializers.ModelSerializer):
             'cell_phone',
             'address',
             'residence',
-            'data_joined',
+            'date_joined',
             'last_login',
         ]
 
