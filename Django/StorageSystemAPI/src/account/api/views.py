@@ -173,7 +173,7 @@ def api_create_location(request, pk, format=None):
 
     user = request.user
     if account != user:
-        return Response({'response': "You don't have permission to add this information."})
+        return Response({'response': "You don't have permission to see this informations."})
 
     if request.method == 'POST':
         context = {}

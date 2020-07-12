@@ -34,6 +34,7 @@ Pokretanje servera moguće je iz ljuske pozicionirane u direktorij *src* naredbo
 ### Opis
 
 U nastavku su navedene osnovne operacije, njihovo pokretanje i očekivani rezultati.
+Pregled svih podataka moguć je prijavom administratora na [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/). 
 
 #### Registracija 
 
@@ -68,10 +69,21 @@ URL: http://127.0.0.1:8000/osobe/update/$pk$
 
 Izmjena podataka svake pojedinačne osobe omogućena je administratoru, a također omogućena je i izmjena svojih vlastitih informacija za svaku osobu. U Postmanu je potrebno postaviti "PUT" zahtjev te u stupcu Body odabrati "form-data". Kao atribute stupca *KEY* potrebno je navesti sve atribute koje korisnik želi zamijeniti (nije potrebno unositi i one atribute koje korisnik ne mijenja), a kao *VALUE* novu vrijednost. Osim toga, u stupcu "Header" potrebno je kao *KEY* navesti "Authorization", a kao *VALUE* "Token $token$". Konkretno, za izmjenu imena osobe Marko Marić u Mihael Marić potrebno je unijeti token "0a1c46d07ba85c2de06f35415f1cf7e7d21ffca6" (ili token administratora: "f699cec5f3e0f930aa677a03e0e0a3ca006974f4") te u stupcu name unijeti vrijednost "Mihael". U slučaju ispravnog zahtjeva, očekivani rezultat je [update.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/update.json). U slučaju pokušaja izmjene podataka računa koji ne pripada osobi koja izvodi zahjev očekivani rezultat je [update_fail.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/update_fail.json), a u slučaju pokušaja izmjene podataka nepostojeće osobe očekivani rezultat je statusni kod *HTTPS_404_NOT_FOUND*.
 
-#### Brisanje osoba
+#### Brisanje osobe
 
 URL: http://127.0.0.1:8000/osobe/delete/$pk$
 
-Brisanje svake pojedinačne osobe omogućeno je administratoru, a također omogućeno je i brisanje vlastitog računa za svaku osobu. U Postmanu je potrebno odabrati opciju "DELETE" te u stupcu "Header" za vrijednosti *KEY* i *VALUE* unijeti "Authorization" odnosno "Token $ispravan token$". Očekivani rezultat ispravnog zahtjeva je [delete.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/delete.json), dok je očekivani rezultat neispravnog rezultata brisanja postojeće osobe [delete_fail.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/delete_fail.json), a nepostojeće osobe statusni kod *HTTPS_404_NOT_FOUND*.
+Brisanje svake pojedinačne osobe omogućeno je administratoru, a također omogućeno je i brisanje vlastitog računa za svaku osobu. U Postmanu je potrebno odabrati opciju "DELETE" te u stupcu "Header" za vrijednosti *KEY* i *VALUE* unijeti "Authorization" odnosno "Token $ispravan_token$". Očekivani rezultat ispravnog zahtjeva je [delete.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/delete.json), dok je očekivani rezultat neispravnog rezultata brisanja postojeće osobe [delete_fail.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/delete_fail.json), a nepostojeće osobe statusni kod *HTTPS_404_NOT_FOUND*.
+
+#### Stvaranje lokacije 
+
+URL: http://127.0.0.1:8000/osobe/location/create/$pk$
+
+Stvaranje nove lokacije omogućeno je svakoj osobi. U Postmanu je potrebno odabrati "POST", u stupcu "Headers" kao vrijednost *KEY* i *VALUE* unijeti "Authorization" i "Token $ispravan_token$". U stupcu "Body" nakon odabira opcije "form-data" kao vrijednosti stupca *KEY* potrebno je unijeti "latitude" i "longitude" te im pridružiti vrijednosti koje predstavljaju koordinate. Primjer očekivanog rezultata ispravnog zahtjeva prikazan je u [location.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/location.json), a primjer očekivano rezultata neispravnog zahtjeva je statusni kod *HTTPS_400_BAD_REQUEST* odnosno [token_wrong.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/token_wrong.json) u slučaju korištenja pogrešnog tokena.
+
+#### Prikaz svih lokacija
+
+
+
 
 
