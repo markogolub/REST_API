@@ -56,4 +56,11 @@ URL: http://127.0.0.1:8000/osobe/$pk$
 
 Dohvate informacija o svakoj pojedinačnoj osobi omogućen je administratoru, a također omogućen je i dohvat svojih vlastitih informacija za svaku osobu. "$pk$" označa jedinstven *primary_key* koji posjeduje svaka osoba. U postman je potrebno odabrati opciju "GET" te u stupcu "Headers" kao *KEY* dodati "Authorization", a kao *VALUE* "Token $token$" gdje je "$token$" vlastiti token osobe čije informacije želimo vidjeti (ili $admin_token$ kojim je moguće pregledati informacije svih osoba). Očekivani rezultat za zahtjev "http://127.0.0.1:8000/osobe/3" uz token "ea590815d41bc8378d86dcec1b429795ecef45be" prikazan je u [osobe_3.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/osobe_3.json), dok je očekivani rezultat za zahtjev "http://127.0.0.1:8000/osobe/4" [token_wrong.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/token_wrong.json). U slučaju slanja zahtjeva za nepostojećim "$pk$" očekivani rezultat je statusni kod *HTTPS_404_NOT_FOUND*. 
 
+#### Prijava
+
+URL: http://127.0.0.1:8000/osobe/login
+
+Prijava je omogućena samo registriranim osobama. Ukoliko registrirana osoba nema token on će biti stvoren. U Postmanu je potrebno postaviti "POST" zahtjev te u stupcu Body odabrati "form-data". Iako se prijava obavlja koristeći *email*, zbog Django defualt zahtjeva kao prvi atribut stupca *KEY* potrebno je navesti "username". Drugi je atribut "password" te konkretno za "pero.peric@example.com" i "sifra4" očekivani rezultat je [login.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/login.json), a u slučaju pogrešnog unosa podataka očekivani je rezultat [login_fail.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/login_fail.json).
+
+#### Izmjena podataka
 
