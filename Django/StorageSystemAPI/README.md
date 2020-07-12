@@ -28,7 +28,6 @@ provodi se instalacija svih potrebnih alata i paketa iz requirements.txt.
 ### Pokretanje
 
 Pokretanje servera moguće je iz ljuske pozicionirane u direktorij src naredbom:
-
 python manage.py runserver
 
 ### Opis
@@ -36,5 +35,12 @@ python manage.py runserver
 U nastavku su navedene osnovne operacije, njihovo pokretanje i očekivani rezultati.
 
 #### Registracija 
+
+URL: https:/127.0.0.1:8000/osobe/register
+
+U navedenoj poveznici "127.0.0.1:8000" predstavlja korisnikovu domenu. U postmanu je potrebno odabrati opciju "POST" te u stupcu "Body" odabrati opciju "form-data". U stupcu "KEY" potrebno je navesti sve podatke potrebne za registraciju novog korisnika, odnosno imati atribute: email, username, password, password2, name, surname, phone, cell_phone, address, residence.
+Atribut *password2* predstavlja ponovni unos lozinke, a obavezna polja su polja *email*, *username* i *cell_phone*. Potrebno je paziti na pravilan format podataka unesenih za polja *phone* i *cell_phone* zbog korištenja klase [PhoneNumberField](https://pypi.org/project/django-phonenumber-field/), odnosno potrebno je unijeti kod države. Konkretno, "+385" prefiks za brojeve iz Hrvatske.
+U slučaju unosa već postojeće email adrese, korisničkog imena ili broja mobitela očekivani rezultat prikazan je u [register_existing_data.json]() te je vraćen statusni kod *HTTPS_400_BAD_REQUEST*. Primjer očekivanog rezultata za ispravnu registraciju prikazan je u [register.json]().
+
 
 
