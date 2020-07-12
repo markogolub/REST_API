@@ -13,20 +13,28 @@ Programi su pisani koristeći Python verzije 3.6.7. i HTML5 na operacijskom sust
 
 ## Upute za korištenje
 
-### Korištene tehnologije i alati
-
-Ovdje nabrojati sve korištene tehnologije i alate:
-1.
-2.
-3.
-...
-
 ### Preuzimanje
 
 Nakon pozicioniranja u direktorij gdje će projekt biti pohranjen, potrebno je izvršiti sljedeću naredbu:
 
-*naredba*
+*git clone https://github.com/markogolub/REST_API/tree/master/Django/StorageSystemAPI*
 
-te instalirati sve dodatke navedene u requirements.txt naredbom 
+i pozicionirati se u direktorij src. Izvođenjem naredbe
 
-*naredba* 
+*pip install -r requirements.txt*
+
+provodi se instalacija svih potrebnih alata i paketa iz requirements.txt. 
+
+### Pokretanje
+
+Pokretanje servera moguće je iz ljuske pozicionirane u direktorij src naredbom:
+
+python manage.py runserver
+
+### Opis
+
+U nastavku su navedene osnovne operacije, njihovo pokretanje i očekivani rezultati.
+
+#### Registracija 
+
+
