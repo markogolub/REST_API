@@ -37,7 +37,7 @@ U nastavku su navedene osnovne operacije, njihovo pokretanje i očekivani rezult
 
 #### Registracija 
 
-URL: https:/127.0.0.1:8000/osobe/register
+URL: http:/127.0.0.1:8000/osobe/register
 
 U navedenoj poveznici "127.0.0.1:8000" predstavlja korisnikovu domenu. U postmanu je potrebno odabrati opciju "POST" te u stupcu "Body" odabrati opciju "form-data". U stupcu "KEY" potrebno je navesti sve podatke potrebne za registraciju novog korisnika, odnosno imati atribute: email, username, password, password2, name, surname, phone, cell_phone, address, residence.
 
