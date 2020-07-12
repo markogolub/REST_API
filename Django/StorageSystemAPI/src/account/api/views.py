@@ -123,6 +123,7 @@ def api_register_account_view(request):
             context['cell_phone'] = str(account.cell_phone)
             context['address'] = account.address
             context['residence'] = account.residence
+            context['date_joined'] = account.date_joined
             context['token'] = token.key
             return Response(data=context)
 
@@ -204,7 +205,7 @@ class LoginAuthTokenView(APIView):
     def post(self, request):
         context = {}
 
-        # Django default. First field must be names 'username' even when logging in with email.
+        # Django default. First field must be 'username' even when logging in with email.
         email = request.POST.get('username')
         password = request.POST.get('password')
         account = authenticate(email=email, password=password)
