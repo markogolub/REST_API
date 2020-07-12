@@ -1,5 +1,6 @@
-from django.shortcuts import render
 from account.models import Account
+from django.shortcuts import render
+
 
 def home_screen_view(request):
     context = {}

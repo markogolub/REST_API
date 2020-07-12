@@ -1,15 +1,15 @@
+from account.models import Account, Location
+from account.api.serializers import AccountSerializer, RegistrationSerializer
+from django.contrib.auth import authenticate
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.authtoken.models import Token
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.filters import SearchFilter, OrderingFilter
-from django.contrib.auth import authenticate
-from account.models import Account, Location
-from account.api.serializers import AccountSerializer, RegistrationSerializer, LocationSerializer
 
 
 @api_view(('GET',))
@@ -20,6 +20,10 @@ def api_detail_account_view(request, pk, format=None):
         account = Account.objects.get(pk=pk)
     except Account.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+    user = request.user
+    if not user.is_superuser and user.pk != account.pk:
+        return Response({'response': "You don't have permission to see this informations."})
 
     if request.method == 'GET':
         serializer = AccountSerializer(account)
@@ -39,13 +43,13 @@ def api_detail_all_accounts_view(request):
         return Response({'response': "You don't have permission to see this informations."})
 
     if request.method == 'GET':
-        data = []
+        account_details = []
 
         for account_values in accounts.values():
             del account_values['password']
-            data.append(account_values)
+            account_details.append(account_values)
 
-        return Response({'osobe': data})
+        return Response({'osobe': account_details})
 
 
 @api_view(('PUT',))
@@ -62,13 +66,16 @@ def api_update_account_view(request, pk, format=None):
         return Response({'response': "You don't have permission to update this informations."})
 
     if request.method == 'PUT':
+        context = {}
         serializer = AccountSerializer(account, request.data, partial=True)
-        data = {}
+
         if serializer.is_valid():
             serializer.save()
-            data["success"] = "Update successful."
-            return Response(data=data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            context["success"] = "Update successful."
+            return Response(data=context)
+
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(('DELETE',))
@@ -85,38 +92,41 @@ def api_delete_account_view(request, pk, format=None):
         return Response({'response': "You don't have permission to delete this informations."})
 
     if request.method == 'DELETE':
+        context = {}
         operation = account.delete()
-        data = {}
+
         if operation:
-            data["success"] = "Delete successful."
+            context["success"] = "Delete successful."
         else:
-            data["failure"] = "Delete failed."
-        return Response(data=data)
+            context["failure"] = "Delete failed."
+
+        return Response(data=context)
 
 
 @api_view(('POST',))
 def api_register_account_view(request):
 
     if request.method == 'POST':
+        context = {}
         serializer = RegistrationSerializer(data=request.data)
-        data = {}
+
         if serializer.is_valid():
             account = serializer.save()
-            data['response'] = "Successfully registered a new user."
-            data['email'] = account.email
-            data['username'] = account.username
-            data['name'] = account.name
-            data['surname'] = account.surname
-            data['phone'] = str(account.phone)
-            data['cell_phone'] = str(account.cell_phone)
-            data['address'] = account.address
-            data['residence'] = account.residence
             token = Token.objects.get(user=account).key
-            data['token'] = token
+            context['response'] = "Successfully registered a new user."
+            context['email'] = account.email
+            context['username'] = account.username
+            context['name'] = account.name
+            context['surname'] = account.surname
+            context['phone'] = str(account.phone)
+            context['cell_phone'] = str(account.cell_phone)
+            context['address'] = account.address
+            context['residence'] = account.residence
+            context['token'] = token
+            return Response(data=context)
+
         else:
-            data = serializer.errors
-        print(data)
-        return Response(data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(('GET',))
@@ -133,20 +143,21 @@ def api_show_all_locations(request, pk, format=None):
         return Response({'response': "You don't have permission to see this informations."})
 
     if request.method == 'GET':
-        data = {}
+        context = {}
         locations_list = []
-
         locations = list(account.location_set.all())
+
         for location in locations:
             locations_list.append({'latitude': float(location.latitude),
                                    'longitude': float(location.longitude),
                                    'time': str(location.time)})
 
-        data['locations'] = locations_list
-        if data['locations']:
-            return Response(data=data)
+        context['locations'] = locations_list
+
+        if context['locations']:
+            return Response(data=context)
         else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(('POST',))
@@ -163,17 +174,16 @@ def api_create_location(request, pk, format=None):
         return Response({'response': "You don't have permission to add this information."})
 
     if request.method == 'POST':
-        data = {}
+        context = {}
 
         try:
             new_location = Location(latitude=request.data['latitude'], longitude=request.data['longitude'], account=account)
             new_location.save()
+            context['success'] = "Created new location."
+            return Response(data=context)
 
-            data['success'] = "Created new location."
-
-            return Response(data)
         except:
-            return Response(data, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data=context, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserListView(ListAPIView):
@@ -191,9 +201,9 @@ class LoginAuthTokenView(APIView):
     permission_classes = []
 
     def post(self, request):
-        data = {}
+        context = {}
 
-        # Django default.
+        # Django default. First field must be names 'username' even when logging in with email.
         email = request.POST.get('username')
         password = request.POST.get('password')
         account = authenticate(email=email, password=password)
@@ -202,11 +212,11 @@ class LoginAuthTokenView(APIView):
                 token = Token.objects.get(user=account)
             except Token.DoesNotExist:
                 token = Token.objects.create(user=account)
-            data['response'] = "Successfully authenticated."
-            data['pk'] = account.pk
-            data['token'] = token.key
+            context['response'] = "Successfully authenticated."
+            context['pk'] = account.pk
+            context['token'] = token.key
         else:
-            data['response'] = "Error!"
-            data['error_message'] = "Invalid credentials."
+            context['response'] = "Error!"
+            context['error_message'] = "Invalid credentials."
 
-        return Response(data)
+        return Response(data=context)

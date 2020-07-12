@@ -19,6 +19,7 @@ class AccountSerializer(serializers.ModelSerializer):
             'last_login',
         ]
 
+
 class RegistrationSerializer(serializers.ModelSerializer):
 
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
@@ -57,18 +58,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
         if password != password2:
             raise serializers.ValidationError({'password': 'Passwords must match.'})
+
         account.set_password(password)
         account.save()
         return account
-
-
-class LocationSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Location
-        fields = [
-            'latitude',
-            'longitude',
-            'time',
-            'account',
-        ]

@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
-from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
+from account.forms import AccountAuthenticationForm, AccountUpdateForm, RegistrationForm
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect, render
 
 
 def registation_view(request):
@@ -8,6 +8,7 @@ def registation_view(request):
 
     if request.POST:
         form = RegistrationForm(request.POST)
+
         if form.is_valid():
             form.save()
             email = form.cleaned_data.get('email')
@@ -17,9 +18,12 @@ def registation_view(request):
             return redirect('home')
         else:
             context['registration_form'] = form
-    else: #request.GET
+
+    # request.GET
+    else:
         form = RegistrationForm()
         context['registration_form'] = form
+
     return render(request, 'account/register.html', context)
 
 
@@ -37,6 +41,7 @@ def login_view(request):
 
     if request.POST:
         form = AccountAuthenticationForm(request.POST)
+
         if form.is_valid():
             email = request.POST['email']
             password = request.POST['password']
@@ -45,6 +50,7 @@ def login_view(request):
             if user:
                 login(request, user)
                 return redirect('home')
+
     else:
         form = AccountAuthenticationForm()
 
@@ -62,6 +68,7 @@ def account_view(request):
         form = AccountUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
+
     else:
         form = AccountUpdateForm(
             initial= {
@@ -69,5 +76,6 @@ def account_view(request):
                 "username": request.user.username
             }
         )
+
     context['account_form'] = form
     return render(request, 'account/account.html', context)

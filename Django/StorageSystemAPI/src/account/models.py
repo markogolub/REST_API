@@ -1,10 +1,10 @@
-from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.conf import settings
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from rest_framework.authtoken.models import Token
 from phonenumber_field.modelfields import PhoneNumberField
+from rest_framework.authtoken.models import Token
 
 
 class MyAccountManager(BaseUserManager):
@@ -32,8 +32,8 @@ class MyAccountManager(BaseUserManager):
         )
 
         user.set_password(password)
-
         user.save(using=self._db)
+
         return user
 
     def create_superuser(self, email, name, surname, cell_phone, address, residence, password):
@@ -50,8 +50,8 @@ class MyAccountManager(BaseUserManager):
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
-
         user.save(using=self._db)
+
         return user
 
 
