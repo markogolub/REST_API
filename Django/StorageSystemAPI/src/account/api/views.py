@@ -62,7 +62,7 @@ def api_update_account_view(request, pk, format=None):
         return Response({'response': "You don't have permission to update this informations."})
 
     if request.method == 'PUT':
-        serializer = AccountSerializer(account, request.data)
+        serializer = AccountSerializer(account, request.data, partial=True)
         data = {}
         if serializer.is_valid():
             serializer.save()
