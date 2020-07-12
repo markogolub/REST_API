@@ -1,0 +1,38 @@
+[
+    {
+        "email": "mato.matic@example.com",
+        "username": "mmatic",
+        "name": "Mato",
+        "surname": "Matić",
+        "phone": "+38510000004",
+        "cell_phone": "+385910000004",
+        "address": "Zagreb",
+        "residence": "Ilica 204",
+        "date_joined": "2020-07-12T18:39:09.770793Z",
+        "last_login": "2020-07-12T18:39:09.770833Z"
+    },
+    {
+        "email": "ivan.ivic@example.com",
+        "username": "iiviic",
+        "name": "Ivan",
+        "surname": "Ivić",
+        "phone": "+38510000002",
+        "cell_phone": "+385910000002",
+        "address": "Zagreb",
+        "residence": "Ilica 68",
+        "date_joined": "2020-07-12T17:40:20.580726Z",
+        "last_login": "2020-07-12T17:40:20.580765Z"
+    },
+    {
+        "email": "marko.maric@example.com",
+        "username": "mmaric",
+        "name": "Marko",
+        "surname": "Marić",
+        "phone": "+38510000001",
+        "cell_phone": "+385910000001",
+        "address": "Zagreb",
+        "residence": "Slavonska avenija, 22",
+        "date_joined": "2020-07-12T17:38:45.068030Z",
+        "last_login": "2020-07-12T19:33:31.870171Z"
+    }
+]

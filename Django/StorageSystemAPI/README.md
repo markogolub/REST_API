@@ -40,7 +40,7 @@ Pregled svih podataka moguć je prijavom administratora na [http://127.0.0.1:800
 
 URL: http://127.0.0.1:8000/osobe/register
 
-U navedenoj poveznici "127.0.0.1:8000" predstavlja korisnikovu domenu. U postmanu je potrebno odabrati opciju "POST" te u stupcu "Body" odabrati opciju "form-data". U stupcu "KEY" potrebno je navesti sve podatke potrebne za registraciju novog korisnika, odnosno imati atribute: email, username, password, password2, name, surname, phone, cell_phone, address, residence.
+U navedenoj poveznici "127.0.0.1:8000" predstavlja korisnikovu domenu. U Postmanu je potrebno odabrati opciju "POST" te u stupcu "Body" odabrati opciju "form-data". U stupcu "KEY" potrebno je navesti sve podatke potrebne za registraciju novog korisnika, odnosno imati atribute: email, username, password, password2, name, surname, phone, cell_phone, address, residence.
 
 Atribut *password2* predstavlja ponovni unos lozinke, a obavezna polja su polja *email*, *username* i *cell_phone*. Potrebno je paziti na pravilan format podataka unesenih za polja *phone* i *cell_phone* zbog korištenja klase [PhoneNumberField](https://pypi.org/project/django-phonenumber-field/), odnosno potrebno je unijeti kod države. Konkretno, "+385" prefiks za brojeve iz Hrvatske.
 U slučaju unosa već postojeće email adrese, korisničkog imena ili broja mobitela očekivani rezultat prikazan je u [register_existing_data.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/register_existing_data.json) te je vraćen statusni kod *HTTPS_400_BAD_REQUEST*. Primjer očekivanog rezultata za ispravnu registraciju prikazan je u [register.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/register.json).
@@ -49,13 +49,13 @@ U slučaju unosa već postojeće email adrese, korisničkog imena ili broja mobi
 
 URL: http://127.0.0.1:8000/osobe/
 
-Dohvat liste osoba omogućen je jedino administratoru (superuseru). U postman je potrebno odabrati opciju "GET" te u stupcu "Headers" kao *KEY* dodati "Authorization", a kao *VALUE* "Token $admin_token$". Konkretno, token "f699cec5f3e0f930aa677a03e0e0a3ca006974f4". Prikaz očekivanog rezultata za ispravan zahtjev prikazan je u [osobe.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/osobe.json). U slučaju pokušaja dohvata liste osoba s drugim tokenom očekivani rezultat prikazan je u [token_wrong.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/token_wrong.json), odnosno u slučaju pokušaja dohvata s nepostojećim tokenom [token_fail.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/token_fail.json).
+Dohvat liste osoba omogućen je jedino administratoru (superuseru). U Postmanu je potrebno odabrati opciju "GET" te u stupcu "Headers" kao *KEY* dodati "Authorization", a kao *VALUE* "Token $admin_token$". Konkretno, token "f699cec5f3e0f930aa677a03e0e0a3ca006974f4". Prikaz očekivanog rezultata za ispravan zahtjev prikazan je u [osobe.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/osobe.json). U slučaju pokušaja dohvata liste osoba s drugim tokenom očekivani rezultat prikazan je u [token_wrong.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/token_wrong.json), odnosno u slučaju pokušaja dohvata s nepostojećim tokenom [token_fail.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/token_fail.json).
 
 #### Dohvat pojedinačne osobe
 
 URL: http://127.0.0.1:8000/osobe/$pk$
 
-Dohvate informacija o svakoj pojedinačnoj osobi omogućen je administratoru, a također omogućen je i dohvat svojih vlastitih informacija za svaku osobu. "$pk$" označa jedinstven *primary_key* koji posjeduje svaka osoba. U postman je potrebno odabrati opciju "GET" te u stupcu "Headers" kao *KEY* dodati "Authorization", a kao *VALUE* "Token $token$" gdje je "$token$" vlastiti token osobe čije informacije želimo vidjeti (ili $admin_token$ kojim je moguće pregledati informacije svih osoba). Očekivani rezultat za zahtjev "http://127.0.0.1:8000/osobe/3" uz token "ea590815d41bc8378d86dcec1b429795ecef45be" prikazan je u [osobe_3.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/osobe_3.json), dok je očekivani rezultat za zahtjev "http://127.0.0.1:8000/osobe/4" [token_wrong.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/token_wrong.json). U slučaju slanja zahtjeva za nepostojećim "$pk$" očekivani rezultat je statusni kod *HTTPS_404_NOT_FOUND*. 
+Dohvate informacija o svakoj pojedinačnoj osobi omogućen je administratoru, a također omogućen je i dohvat svojih vlastitih informacija za svaku osobu. "$pk$" označa jedinstven *primary_key* koji posjeduje svaka osoba. U Postmanu je potrebno odabrati opciju "GET" te u stupcu "Headers" kao *KEY* dodati "Authorization", a kao *VALUE* "Token $token$" gdje je "$token$" vlastiti token osobe čije informacije želimo vidjeti (ili $admin_token$ kojim je moguće pregledati informacije svih osoba). Očekivani rezultat za zahtjev "http://127.0.0.1:8000/osobe/3" uz token "ea590815d41bc8378d86dcec1b429795ecef45be" prikazan je u [osobe_3.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/osobe_3.json), dok je očekivani rezultat za zahtjev "http://127.0.0.1:8000/osobe/4" [token_wrong.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/token_wrong.json). U slučaju slanja zahtjeva za nepostojećim "$pk$" očekivani rezultat je statusni kod *HTTPS_404_NOT_FOUND*. 
 
 #### Prijava
 
@@ -79,11 +79,22 @@ Brisanje svake pojedinačne osobe omogućeno je administratoru, a također omogu
 
 URL: http://127.0.0.1:8000/osobe/location/create/$pk$
 
-Stvaranje nove lokacije omogućeno je svakoj osobi. U Postmanu je potrebno odabrati "POST", u stupcu "Headers" kao vrijednost *KEY* i *VALUE* unijeti "Authorization" i "Token $ispravan_token$". U stupcu "Body" nakon odabira opcije "form-data" kao vrijednosti stupca *KEY* potrebno je unijeti "latitude" i "longitude" te im pridružiti vrijednosti koje predstavljaju koordinate. Primjer očekivanog rezultata ispravnog zahtjeva prikazan je u [location.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/location.json), a primjer očekivano rezultata neispravnog zahtjeva je statusni kod *HTTPS_400_BAD_REQUEST* odnosno [token_wrong.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/token_wrong.json) u slučaju korištenja pogrešnog tokena.
+Stvaranje nove lokacije omogućeno je svakoj osobi. U Postmanu je potrebno odabrati "POST", u stupcu "Headers" kao vrijednost *KEY* i *VALUE* unijeti "Authorization" i "Token $ispravan_token$". U stupcu "Body" nakon odabira opcije "form-data" kao vrijednosti stupca *KEY* potrebno je unijeti "latitude" i "longitude" te im pridružiti vrijednosti koje predstavljaju koordinate. Primjer očekivanog rezultata ispravnog zahtjeva prikazan je u [location.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/location.json), a primjer očekivanog rezultata neispravnog zahtjeva je statusni kod *HTTPS_400_BAD_REQUEST* odnosno [token_wrong.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/token_wrong.json) u slučaju korištenja pogrešnog tokena.
 
 #### Prikaz svih lokacija
 
+URL: http://127.0.0.1:8000/osobe/locations/$pk$
 
+Prikaz svih prijašnjih lokacija svih osoba omogućen je administratoru te pojedinačno vlastita povijest lokacija za svaku osobu. Za svaku osobu potrebno je posebno unositi njen *$pk$*. U Postmanu je potrebno izabrati "GET" te unijeti ispravan token. Očekivan rezultat za ispravan token "ea590815d41bc8378d86dcec1b429795ecef45be" i *$pk$* odnosno "http://127.0.0.1:8000/osobe/locations/3" prikazan je u [locations.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/locations.json), a primjer očekivanog rezultata neispravnog zahtjeva je statusni kod *HTTPS_404_NOT_FOUND* odnosno [token_wrong.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/token_wrong.json) u slučaju korištenja pogrešnog tokena.
 
+#### Bonus: pretraga po lokaciji
+
+URL: http://127.0.0.1:8000/osobe/location/search
+
+Pretragu po lokaciji moguće je obaviti dodavanjem "?search=$traženi_pojam$". Konkretno, s tokenom administratora "f699cec5f3e0f930aa677a03e0e0a3ca006974f4" očekivani rezultat zahtjeva "http://127.0.0.1:8000/osobe/location/search?search=Zagreb" prikazan je u [search.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/search.json). Rezultat pretrage je lista svih osoba čija adresa sadrži traženi pojam "Zagreb". 
+
+Dodatno svojstvo je mogućnost sortiranja dodavanje "&ordering=$uvjet$". Konkretno očekivani rezultat zahtjeva "http://127.0.0.1:8000/osobe/location/search?search=zagreb&ordering=-date_joined" prikazan je u [ordering.json](https://github.com/markogolub/REST_API/blob/master/Django/StorageSystemAPI/expected_results/ordering.json). Sada je rezultat pretrag sortiran tako da su osobe stovrene kasnije na vrhu liste. 
+
+#### Zaboravljena lozinka
 
 
