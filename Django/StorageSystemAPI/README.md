@@ -97,4 +97,7 @@ Dodatno svojstvo je mogućnost sortiranja dodavanje "&ordering=$uvjet$". Konkret
 
 #### Zaboravljena lozinka
 
+URL: http://127.0.0.1:8000/password_reset/
+
+U slučaju zaboravljene lozinke, moguće je postaviti novu. Otvaranjem [http://127.0.0.1:8000/password_reset/](http://127.0.0.1:8000/password_reset/) u web pregledniku, ili navigiranjem na "Login" pa "Forgot password?" na [http://127.0.0.1:8000/](http://127.0.0.1:8000/) za unesenu email adresu u ljusci se ispisuje poveznica pomoću koje je moguće promijeniti lozinku. 
 
